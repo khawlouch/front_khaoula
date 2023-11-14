@@ -1,0 +1,40 @@
+<div class="container">
+    <div>
+    <h2>Ajouter un Medecin :</h2>
+    </div>
+    <form >
+        <div class="col-sm-2 col-md-2 col-lg-2">
+        <label >ID Medecin</label>
+        <input type="text" [(ngModel)]="newMedecin.idMedecin"
+        name="idMedecin" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4" >
+        <label >Nom Medecin</label>
+        <input type="text"[(ngModel)]= "newMedecin.nomMedecin"
+        name="nomMedecin" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+        <label >Salaire Medecin</label>
+        <input type="number" [(ngModel)]= "newMedecin.salaireMedecin"
+        name="salaireMedecin" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+        <label >Date création</label>
+        <input type="date" [(ngModel)]= "newMedecin.dateContrat"
+        name="dateContrat" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Hopital</label>
+            <select class="form-control form-control-lg" id="idHop" name="idHop"[(ngModel)]="newIdHop">
+             <option *ngFor="let hop of hopitales" [value]="hop.idHop" >
+             {{hop.nomHop}}
+            </option>
+            </select>
+            </div>            
+        <div class="mt-2">
+        <button type="submit" (click)="addMedecin()"class="btn btn-success">Ajouter</button>
+        </div>
+        </form>
+        </div>
+        
+    
