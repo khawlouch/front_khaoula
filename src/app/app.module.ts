@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { MedecinsComponent } from './medecins/medecins.component';
 import { AddMedecinComponent } from './add-medecin/add-medecin.component';
 import { FormsModule } from '@angular/forms';
-import { UpdateMedecinComponent } from './services/update-medecin/update-medecin.component';
+import { UpdateMedecinComponent } from './update-medecin/update-medecin.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,8 @@ import { UpdateMedecinComponent } from './services/update-medecin/update-medecin
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

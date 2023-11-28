@@ -10,22 +10,48 @@ import { Router } from '@angular/router';
 })
 export class AddMedecinComponent {
   newMedecin = new Medecin();
-  hopitales! :Hopital[];
-  newIdHop! :number;
-  newHopital! : Hopital;
+  hopitales? :Hopital[] ;
+  newIdHop :number=0;
+  newHopital : Hopital | undefined ;
   constructor(private medecinService: MedecinService, private router :Router) { }
-  ngOnInit() {
-    this.hopitales = this.medecinService.listeHopitals();
-    }
 
-  addMedecin(){
-   // console.log(this.newMedecin);
-   this.newHopital = 
-   this.medecinService.consulterHopital(this.newIdHop);
-   this.newMedecin.hopital = this.newHopital;
-   this.medecinService.ajouteMedecin(this.newMedecin);
-   this.router.navigate(['medecins']);
+  ngOnInit() : void {
+   //this.hopitales = this.medecinService.listeHopitals();
+  /* this.medecinService.listeHopitals().
+   subscribe((hops:any) => {
+    console.log("hops",hops);
+   this.hopitales = hops._embedded.hopitales
+  });*/
 
-    }
+
+  this.medecinService.listeHopitals().subscribe((hopitalWrappers: any) => {
+    this.hopitales=hopitalWrappers._embedded.hopitals
+    console.log(hopitalWrappers._embedded.hopitals.forEach((element:Hopital) => {
+      console.log(element);  
+    }))
     
-}
+})
+    }
+
+    addMedecin(){
+     
+       //this.newHopital=this.hopitales?.find(hopital => hopital.idHop === this.newIdHop);
+      // console.log(this.hopitales?.find(hopital => hopital.idHop === this.newIdHop));
+       //console.log(this.newHopital);
+    
+      this.newHopital = this.hopitales?.find(hospital => hospital.idHop == this.newIdHop);
+      console.log(this.newHopital);
+      if(this.newHopital){
+      this.newMedecin.hopital=this.newHopital}
+      this.medecinService.ajouteMedecin(this.newMedecin)
+      .subscribe(med => {
+        console.log("res");
+        
+      console.log(med);
+      this.router.navigate(['medecins']);
+      });
+
+
+    }
+      }
+    

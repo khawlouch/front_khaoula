@@ -7,27 +7,35 @@ import { MedecinService } from '../services/medecin.service';
   styleUrls: ['./medecins.component.css']
 })
 export class MedecinsComponent {
-  medecins : Medecin[];
+  medecins : Medecin[] = [] ;
 
 
 constructor(private medecinService: MedecinService) {
-  this.medecins = medecinService.listeMedecins();
+  //this.medecins = medecinService.listeMedecins();
   
   }
 
   ngOnInit(): void {
-    this.medecinService.listeMedecins().subscribe(meds => {console.log(meds);
-    this.medecins = meds;
-    });
-    }
-  
-  supprimerMedecin(m: Medecin)
-  {
-  //console.log(p);
-  let conf = confirm("Etes-vous sûr ?");
-   if (conf)
-   this.medecinService.supprimerMedecin(m);
-  
+    this.chargerMedecins();
+    
   }
+  chargerMedecins(){
+    this.medecinService.listeMedecins().subscribe(meds =>{
+      console.log(meds);
+      this.medecins = meds;
+      });
+
+  }
+ 
+  supprimerMedecin(m: Medecin)
+{
+let conf = confirm("Etes-vous sûr ?");
+if (conf)
+this.medecinService.supprimerMedecin(m.idMedecin).subscribe(() => {
+console.log("medecin supprimé");
+this.chargerMedecins();
+});
+} 
+
 
 }
